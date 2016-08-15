@@ -21,7 +21,7 @@ import Reusable
 class MyColorSquareCell: UICollectionViewCell, Reusable {
   private lazy var colorView: UIView = {
     let colorView = UIView()
-    colorView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+    colorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     colorView.frame = self.contentView.bounds.insetBy(dx: 10, dy: 10)
     self.contentView.addSubview(colorView)
     return colorView

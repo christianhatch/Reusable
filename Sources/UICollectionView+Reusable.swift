@@ -19,7 +19,7 @@ public extension UICollectionView {
 
    - seealso: `register(_:,forCellWithReuseIdentifier:)`
    */
-  final func registerReusableCell<T: UICollectionViewCell where T: NibReusable>(cellType: T.Type) {
+  final func registerReusableCell<T: UICollectionViewCell where T: NibReusable>(_ cellType: T.Type) {
     self.register(cellType.nib, forCellWithReuseIdentifier: cellType.reuseIdentifier)
   }
 
@@ -30,7 +30,7 @@ public extension UICollectionView {
 
    - seealso: `register(_:,forCellWithReuseIdentifier:)`
    */
-  final func registerReusableCell<T: UICollectionViewCell where T: Reusable>(cellType: T.Type) {
+  final func registerReusableCell<T: UICollectionViewCell where T: Reusable>(_ cellType: T.Type) {
     self.register(cellType.self, forCellWithReuseIdentifier: cellType.reuseIdentifier)
   }
 
@@ -46,8 +46,8 @@ public extension UICollectionView {
    except when your type is in a variable and cannot be determined at compile time.
    - seealso: `dequeueReusableCellWithReuseIdentifier(_:,forIndexPath:)`
    */
-  final func dequeueReusableCell<T: UICollectionViewCell where T: Reusable>(indexPath: IndexPath, cellType: T.Type = T.self) -> T {
-    guard let cell = self.dequeueReusableCellWithReuseIdentifier(cellType.reuseIdentifier, forIndexPath: indexPath) as? T else {
+  final func dequeueReusableCell<T: UICollectionViewCell where T: Reusable>(_ indexPath: IndexPath, cellType: T.Type = T.self) -> T {
+    guard let cell = self.dequeueReusableCell(withReuseIdentifier: cellType.reuseIdentifier, for: indexPath) as? T else {
       fatalError(
         "Failed to dequeue a cell with identifier \(cellType.reuseIdentifier) matching type \(cellType.self). "
           + "Check that the reuseIdentifier is set properly in your XIB/Storyboard "
@@ -65,7 +65,7 @@ public extension UICollectionView {
 
    - seealso: `register(_:,forSupplementaryViewOfKind:,withReuseIdentifier:)`
    */
-  final func registerReusableSupplementaryView<T: UICollectionReusableView where T: NibReusable>(elementKind: String, viewType: T.Type) {
+  final func registerReusableSupplementaryView<T: UICollectionReusableView where T: NibReusable>(_ elementKind: String, viewType: T.Type) {
     self.register(viewType.nib, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: viewType.reuseIdentifier)
   }
 
@@ -77,7 +77,7 @@ public extension UICollectionView {
 
    - seealso: `register(_:,forSupplementaryViewOfKind:,withReuseIdentifier:)`
    */
-  final func registerReusableSupplementaryView<T: UICollectionReusableView where T: Reusable>(elementKind: String, viewType: T.Type) {
+  final func registerReusableSupplementaryView<T: UICollectionReusableView where T: Reusable>(_ elementKind: String, viewType: T.Type) {
     self.register(viewType.self, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: viewType.reuseIdentifier)
   }
 
@@ -95,8 +95,8 @@ public extension UICollectionView {
    - seealso: `dequeueReusableSupplementaryViewOfKind(_:,withReuseIdentifier:,forIndexPath:)`
    */
   final func dequeueReusableSupplementaryView<T: UICollectionReusableView where T: Reusable>
-    (elementKind: String, indexPath: IndexPath, viewType: T.Type = T.self) -> T {
-    let view = self.dequeueReusableSupplementaryViewOfKind(elementKind, withReuseIdentifier: viewType.reuseIdentifier, forIndexPath: indexPath)
+    (_ elementKind: String, indexPath: IndexPath, viewType: T.Type = T.self) -> T {
+    let view = self.dequeueReusableSupplementaryView(ofKind: elementKind, withReuseIdentifier: viewType.reuseIdentifier, for: indexPath)
     guard let typedView = view as? T else {
       fatalError(
         "Failed to dequeue a supplementary view with identifier \(viewType.reuseIdentifier) matching type \(viewType.self). "
